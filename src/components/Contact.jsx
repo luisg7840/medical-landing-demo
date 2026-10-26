@@ -3,18 +3,40 @@ import { motion } from 'framer-motion';
 
 export default function Contact() {
   const [nombre, setNombre] = useState('');
+  const [cedula, setCedula] = useState('');
   const [telefono, setTelefono] = useState('');
+  const [fecha, setFecha] = useState('');
   const [motivo, setMotivo] = useState('');
+
+  // Obtener la fecha actual para bloquear días anteriores
+  const fechaActual = new Date().toISOString().split('T')[0];
+
+  // Validar que no se seleccione un domingo
+  const manejarCambioFecha = (e) => {
+    const fechaSeleccionada = e.target.value;
+    // Se añade T00:00:00 para evitar desajustes de zona horaria
+    const diaDeLaSemana = new Date(fechaSeleccionada + 'T00:00:00').getDay(); 
+    
+    if (diaDeLaSemana === 0) { // 0 corresponde al domingo
+      alert("Los domingos el consultorio está cerrado. Por favor selecciona otro día.");
+      setFecha('');
+    } else {
+      setFecha(fechaSeleccionada);
+    }
+  };
 
   const enviarWhatsApp = (e) => {
     e.preventDefault(); 
     const numeroDoctor = "584120000000"; 
-    const mensaje = `¡Hola! Deseo agendar una cita médica.%0A%0A*Mis datos:*%0A- Nombre: ${nombre}%0A- Teléfono: ${telefono}%0A- Motivo de consulta: ${motivo}`;
+    const mensaje = `¡Hola! Deseo agendar una cita médica.%0A%0A*Mis datos:*%0A- Nombre: ${nombre}%0A- Cédula: ${cedula}%0A- Teléfono: ${telefono}%0A- Fecha solicitada: ${fecha}%0A- Motivo de consulta: ${motivo}`;
     const url = `https://wa.me/${numeroDoctor}?text=${mensaje}`;
     window.open(url, '_blank');
     
+    // Limpiar formulario
     setNombre('');
+    setCedula('');
     setTelefono('');
+    setFecha('');
     setMotivo('');
   };
 
@@ -117,18 +139,46 @@ export default function Contact() {
                   placeholder="Ej. Juan Pérez" 
                 />
               </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Cédula</label>
+                  <input 
+                    type="text" 
+                    required
+                    maxLength="12"
+                    value={cedula}
+                    onChange={(e) => setCedula(e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors" 
+                    placeholder="V-12345678" 
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
+                  <input 
+                    type="tel" 
+                    required
+                    maxLength="15"
+                    value={telefono}
+                    onChange={(e) => setTelefono(e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors" 
+                    placeholder="Tu número de contacto" 
+                  />
+                </div>
+              </div>
+
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Fecha de la Cita</label>
                 <input 
-                  type="tel" 
+                  type="date" 
                   required
-                  maxLength="15"
-                  value={telefono}
-                  onChange={(e) => setTelefono(e.target.value)}
+                  min={fechaActual}
+                  value={fecha}
+                  onChange={manejarCambioFecha}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors" 
-                  placeholder="Tu número de contacto" 
                 />
               </div>
+
               <div>
                 <div className="flex justify-between items-center mb-1">
                   <label className="block text-sm font-medium text-gray-700">Motivo de la consulta</label>
