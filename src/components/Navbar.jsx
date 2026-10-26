@@ -34,7 +34,7 @@ export default function Navbar() {
           <div className="hidden md:flex space-x-8 items-center">
             <a href="#inicio" className="text-gray-800 hover:text-primary transition-colors font-medium">Inicio</a>
             <a href="#sobre-mi" className="text-gray-800 hover:text-primary transition-colors font-medium">Sobre mí</a>
-            <a href="#servicios" className="text-gray-800 hover:text-primary transition-colors font-medium">¿Cómo puedo ayudarte?</a>
+            <a href="#servicios" className="text-gray-800 hover:text-primary transition-colors font-medium">Cómo te ayudo</a>
             <a href="#contacto" className="bg-primary text-white px-6 py-2.5 rounded-full font-semibold hover:bg-sky-600 transition-colors shadow-md">
               Agendar Cita
             </a>
@@ -62,7 +62,7 @@ export default function Navbar() {
           <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3">
             <a href="#inicio" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md">Inicio</a>
             <a href="#sobre-mi" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md">Sobre mí</a>
-            <a href="#servicios" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md">¿Cómo puedo ayudarte?</a>
+            <a href="#servicios" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md">Cómo te ayudo</a>
             <div className="px-3 py-2 mt-2">
               <a href="#contacto" onClick={() => setIsOpen(false)} className="block w-full text-center bg-primary text-white px-6 py-2.5 rounded-full font-semibold hover:bg-sky-600 transition-colors shadow-md">
                 Agendar Cita
